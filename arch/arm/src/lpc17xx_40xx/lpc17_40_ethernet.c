@@ -2463,6 +2463,11 @@ static inline int lpc17_40_phyautoneg(uint8_t phyaddr)
 
   for (timeout = MII_BIG_TIMEOUT; timeout > 0; timeout--)
     {
+
+      /* For some motive a large delay is necessary for some PHYs */
+
+      up_udelay(5000);
+
       /* Check if auto-negotiation has completed */
 
       phyreg = lpc17_40_phyread(phyaddr, MII_MSR);
@@ -2668,9 +2673,22 @@ static inline int lpc17_40_phyinit(struct lpc17_40_driver_s *priv)
       lpc17_40_putreg(regval, LPC17_40_ETH_MCFG);
     }
 
+#if defined(CONFIG_ETH0_PHY_DP83848C)
+
+  /* Enable the RMII interface for DP83848x PHYs */
+
+  lpc17_40_phywrite(phyaddr, MII_DP83848C_RBR, MII_RBR_ELAST_2 | MII_RBR_RMIIMODE);
+#endif
+
   /* Are we configured to do auto-negotiation? */
 
 #ifdef CONFIG_LPC17_40_PHY_AUTONEG
+
+  /* Enable FD mode, Auto-negotiation and 100Mbps speed */
+
+  lpc17_40_phywrite(phyaddr, MII_MCR,
+                    MII_MCR_FULLDPLX | MII_MCR_ANENABLE | MII_MCR_SPEED100);
+
   /* Setup the Auto-negotiation advertisement: 100 or 10, and HD or FD */
 
   lpc17_40_phywrite(phyaddr, MII_ADVERTISE,
@@ -2693,6 +2711,16 @@ static inline int lpc17_40_phyinit(struct lpc17_40_driver_s *priv)
     {
       return ret;
     }
+#endif
+
+#if defined(CONFIG_ETH0_PHY_DP83848C)
+
+  /* Wait until the link is stablished */
+
+    while((lpc17_40_phyread(phyaddr, MII_DP83848C_STS) & 0x0001) == 0)
+      {
+        up_udelay(40000);
+      }
 #endif
 
   /* The link is established */
