@@ -210,6 +210,9 @@
 #define SNIOC_SET_CLEAN_INTERVAL   _SNIOC(0x005d) /* Arg: uint32_t value (seconds) */
 #define SNIOC_START_FAN_CLEANING   _SNIOC(0x005e) /* Arg: None */
 
+/* IOCTL commands unique to the ADT7320 */
+#define SNIOC_READSTAT             _SNIOC(0x005f) /* Arg: uint8_t* pointer */
+
 /* IOCTL commands unique to the VL53L1X */
 
 #define SNIOC_DISTANCESHORT        _SNIOC(0x0100) /* Arg: None */
