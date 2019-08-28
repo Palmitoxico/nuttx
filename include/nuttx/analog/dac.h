@@ -212,6 +212,8 @@ FAR struct dac_dev_s *up_ad5410initialize(FAR struct spi_dev_s *spi, unsigned in
 
 FAR struct dac_dev_s *dac7571_initialize(FAR struct i2c_master_s *i2c, uint8_t addr);
 
+FAR struct dac_dev_s *dac7554_initialize(FAR struct spi_dev_s *spi, int spidev);
+
 /****************************************************************************
  * Name: lmp92001_dac_initialize
  *
