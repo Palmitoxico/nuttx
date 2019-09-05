@@ -249,11 +249,11 @@ static int adt7320_readtemp(FAR struct adt7320_dev_s *priv, FAR b16_t *temp)
 
   /* Read the raw temperature data (b16_t) */
 
-  temp_raw = adt7320_read_reg16(priv, ADT7320_TEMP_REG) & 0xFFF8;
+  temp_raw = (int16_t)adt7320_read_reg16(priv, ADT7320_TEMP_REG) & 0xFFF8;
 
-  /* Convert from 8.8 bits to 16.16 bits */
+  /* Convert from 9.7 bits to 16.16 bits */
 
-  temp16 = b8tob16(temp_raw << 1);
+  temp16 = (int32_t)temp_raw << 9;
 
   add_sensor_randomness(temp16);
 
