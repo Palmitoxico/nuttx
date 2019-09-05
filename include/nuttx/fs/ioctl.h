@@ -94,6 +94,7 @@
 #define _PWRBASE        (0x2700) /* Power-related ioctl commands */
 #define _FBIOCBASE      (0x2800) /* Frame buffer character driver ioctl commands */
 #define _NXTERMBASE     (0x2900) /* NxTerm character driver ioctl commands */
+#define _RFIOCBASE      (0x2A00) /* RF devices ioctl commands */
 
 /* boardctl() commands share the same number space */
 
@@ -480,6 +481,11 @@
 
 #define _BOARDIOCVALID(c) (_IOC_TYPE(c)==_BOARDBASE)
 #define _BOARDIOC(nr)     _IOC(_BOARDBASE,nr)
+
+/* NuttX RF ioctl definitions (see nuttx/rf/ioctl.h) ************************/
+
+#define _RFIOCVALID(c)    (_IOC_TYPE(c)==_RFIOCBASE)
+#define _RFIOC(nr)        _IOC(_RFIOCBASE,nr)
 
 /****************************************************************************
  * Public Type Definitions

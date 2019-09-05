@@ -407,3 +407,14 @@ menuconfig 1WIRE
 source drivers/1wire/Kconfig
 
 source drivers/syslog/Kconfig
+
+menuconfig DRIVERS_RF
+	bool "RF Device Support"
+	default n
+	---help---
+		Drivers for various RF devices
+
+if DRIVERS_RF
+source drivers/rf/Kconfig
+endif # DRIVERS_RF
+
