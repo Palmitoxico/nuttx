@@ -769,3 +769,10 @@ config SENSORS_ADT7320
 	select SPI
 	---help---
 		Enables support for the ADT7320 Driver
+
+config SENSORS_LM71
+	bool "Texas Instruments LM71 Driver"
+	default n
+	select SPI
+	---help---
+		Enables support for the LM71 Driver

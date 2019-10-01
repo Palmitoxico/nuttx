@@ -248,6 +248,10 @@ ifeq ($(CONFIG_SENSORS_ADT7320),y)
   CSRCS += adt7320.c
 endif
 
+ifeq ($(CONFIG_SENSORS_LM71),y)
+  CSRCS += lm71.c
+endif
+
 endif # CONFIG_SPI
 
 # Quadrature encoder upper half
