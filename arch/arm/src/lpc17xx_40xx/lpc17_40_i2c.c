@@ -232,7 +232,7 @@ static int lpc17_40_i2c_start(struct lpc17_40_i2cdev_s *priv)
 
   /* Calculate the approximate timeout */
 
-  timeout = ((total_len * (8000000 / CONFIG_USEC_PER_TICK)) / freq) + 1;
+  timeout = ((total_len * (9000000 / CONFIG_USEC_PER_TICK)) / freq) + 1;
 
   /* Initializes the I2C state machine to a known value */
 
