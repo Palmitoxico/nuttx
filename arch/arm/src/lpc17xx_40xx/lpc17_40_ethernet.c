@@ -427,8 +427,9 @@ static uint16_t lpc17_40_phyread(uint8_t phyaddr, uint8_t regaddr);
 static inline int lpc17_40_phyreset(uint8_t phyaddr);
 #  ifdef CONFIG_LPC17_40_PHY_AUTONEG
 static inline int lpc17_40_phyautoneg(uint8_t phyaddr);
-#  endif
+#  else
 static int lpc17_40_phymode(uint8_t phyaddr, uint8_t mode);
+#  endif
 static inline int lpc17_40_phyinit(struct lpc17_40_driver_s *priv);
 #else
 #  define lpc17_40_phyinit(priv)
@@ -2501,7 +2502,7 @@ static inline int lpc17_40_phyautoneg(uint8_t phyaddr)
  *
  ****************************************************************************/
 
-#ifdef LPC17_40_HAVE_PHY
+#if defined(LPC17_40_HAVE_PHY) && !defined(CONFIG_LPC17_40_PHY_AUTONEG)
 static int lpc17_40_phymode(uint8_t phyaddr, uint8_t mode)
 {
   int32_t timeout;

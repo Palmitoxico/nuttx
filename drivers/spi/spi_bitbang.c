@@ -37,9 +37,9 @@
  ****************************************************************************/
 
 #include <nuttx/config.h>
+#include <nuttx/semaphore.h>
 
 #include <stdlib.h>
-#include <semaphore.h>
 #include <assert.h>
 #include <errno.h>
 #include <debug.h>
