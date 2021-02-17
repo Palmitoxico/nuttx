@@ -213,6 +213,8 @@ static int lpc17_40_i2c_start(struct lpc17_40_i2cdev_s *priv)
   uint32_t total_len = 0;
   uint32_t freq = 1000000;
   uint32_t timeout;
+  unsigned int initial_nmsg = priv->nmsg;
+  int ret = 0;
   int i;
 
   putreg32(I2C_CONCLR_STAC | I2C_CONCLR_SIC,
@@ -242,7 +244,17 @@ static int lpc17_40_i2c_start(struct lpc17_40_i2cdev_s *priv)
                  (uint32_t)priv);
   nxsem_wait(&priv->wait);
 
-  return priv->nmsg;
+  if (priv->nmsg != 0)
+  {
+    /* Acknowledge Failure */
+    ret = -ENXIO;
+  }
+  else
+  {
+    ret = initial_nmsg;
+  }
+
+  return ret;
 }
 
 /****************************************************************************
